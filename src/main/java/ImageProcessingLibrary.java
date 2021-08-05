@@ -5,6 +5,13 @@ import Algorithms.Interfaces.IFillHoleAlgorithm;
 import Algorithms.Interfaces.IFindBoundAlgorithm;
 import Algorithms.Interfaces.IFindHoleAlgorithm;
 
+import org.opencv.core.Mat;
+
+/*
+* This class is the library API gateway,
+* It is responsible of granting access to the libraries algorithms,
+* it uses IOC to prevent hard dependency and allow flexibility in algorithm execution.
+* */
 public class ImageProcessingLibrary {
 
   // Fields
@@ -17,6 +24,8 @@ public class ImageProcessingLibrary {
     fillHoleAlgorithm = new FillHoleAlgorithm_impl();
     findBoundAlgorithm = new FindBoundaryAlgorithm_impl();
     findHoleAlgorithm = new FindHoleAlgorithm_impl();
+
+    Init();
   }
 
   // Constructor
@@ -24,11 +33,22 @@ public class ImageProcessingLibrary {
     this.fillHoleAlgorithm = fillHoleAlgorithm;
     this.findBoundAlgorithm = findBoundAlgorithm;
     this.findHoleAlgorithm = findHoleAlgorithm;
+
+    Init();
   }
 
+  private void Init() {
+    fillHoleAlgorithm.setFindBoundaryAlgorithm(findBoundAlgorithm);
+    fillHoleAlgorithm.setFindHolesAlgorithm(findHoleAlgorithm);
+  }
+
+
+
   // Methods
-  public static void FillHoleAlgorithm(){
-    //fillHoleAlgorithm.invoke();
+  public Mat FillHoleAlgorithm(Mat source, double epsilon, double exponent){
+    Mat dest = source.clone();
+    fillHoleAlgorithm.invoke(source, dest, epsilon, exponent);
+    return dest;
   }
 
 }
