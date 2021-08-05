@@ -78,7 +78,7 @@ public class ImageProcessingLibrary {
     return neighbors;
   }
 
-  public static boolean NeighborsContainHole(Mat image, int i, int j, ConnectivityOption connectivityOption) {
+  public static boolean checkNeighborsForHoles(Mat image, int i, int j, ConnectivityOption connectivityOption) {
     List<Point> neighbors = GetNeighbors(new Point(i, j), connectivityOption);
     for (Point neighbor: neighbors) {
       if(neighbor.x < 0 || neighbor.y < 0 || neighbor.x >= image.cols() || neighbor.y >= image.rows())

@@ -13,7 +13,7 @@ public class FindBoundaryAlgorithm_impl implements IFindBoundAlgorithm {
     List<Point> boundaries = new ArrayList<>();
     for (int i = 0; i < image.rows(); i++) {
       for (int j = 0; j < image.cols(); j++) {
-        if(image.get(i,j)[0] != -1  && ImageProcessingLibrary.NeighborsContainHole(image, i, j, connectivityOption))
+        if(image.get(i,j)[0] != -1  && ImageProcessingLibrary.checkNeighborsForHoles(image, i, j, connectivityOption))
           boundaries.add(new Point(i,j));
 
       }
