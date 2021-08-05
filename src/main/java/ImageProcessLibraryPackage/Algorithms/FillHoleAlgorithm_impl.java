@@ -4,7 +4,6 @@ import ImageProcessLibraryPackage.Algorithms.Interfaces.*;
 import ImageProcessLibraryPackage.Functions.Interfaces.DefaultWeightFunction;
 import ImageProcessLibraryPackage.Functions.Interfaces.IWeightFunction;
 
-
 import ImageProcessLibraryPackage.ImageProcessingLibrary;
 import java.awt.Point;
 import java.util.List;
@@ -39,7 +38,7 @@ public class FillHoleAlgorithm_impl implements IFillHoleAlgorithm {
   }
 
   @Override
-  public void setFindHolesAlgorithm(IFindHoleAlgorithm findBoundAlgorithm) {
+  public void setFindHolesAlgorithm(IFindHoleAlgorithm findHolesAlgorithm) {
     this.findHolesAlgorithm = findHolesAlgorithm;
   }
 
