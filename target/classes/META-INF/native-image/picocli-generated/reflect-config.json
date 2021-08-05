@@ -1,6 +1,6 @@
 [
   {
-    "name" : "CommandLine",
+    "name" : "ImageProcessLibraryPackage.CommandLine",
     "allDeclaredConstructors" : true,
     "allPublicConstructors" : true,
     "allDeclaredMethods" : true,
