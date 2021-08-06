@@ -1,7 +1,6 @@
 package ImageProcessLibraryPackage.Algorithms;
 
 import ImageProcessLibraryPackage.Algorithms.Interfaces.*;
-import ImageProcessLibraryPackage.ImageProcessingLibrary;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ import static ImageProcessLibraryPackage.Utils.HoleHelperUtil.isHole;
 
 public class FindBoundaryAlgorithm_impl implements IFindBoundAlgorithm {
   @Override
-  public List<Point> invoke(Mat image, ImageProcessingLibrary.ConnectivityOption connectivityOption) {
+  public List<Point> invoke(Mat image, int connectivityOption) throws Exception {
     List<Point> boundaries = new ArrayList<>();
     for (int i = 0; i < image.rows(); i++) {
       for (int j = 0; j < image.cols(); j++) {

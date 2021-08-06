@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="lightricks_exercise:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/lightricks_exercise_jar</output-path>
+    <root id="archive" name="lightricks_exercise.jar">
+      <element id="module-output" name="lightricks_exercise" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/info/picocli/picocli/4.6.1/picocli-4.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/program files/opencv/opencv/build/java/opencv-453.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

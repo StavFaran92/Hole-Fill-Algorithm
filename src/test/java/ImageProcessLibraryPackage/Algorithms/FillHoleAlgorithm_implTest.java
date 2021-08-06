@@ -35,7 +35,12 @@ public class FillHoleAlgorithm_implTest {
         mat.put(1,2, 255);
         mat.put(1,1, HoleHelperUtil.HOLE);
         System.out.println("mat old: " +mat.dump());
-        Mat result = ImageProcessingLibrary.FillHoleAlgorithm(mat, 0.00001, 0, ImageProcessingLibrary.ConnectivityOption.EIGHT_WAY_CONNECTED);
+        Mat result = null;
+        try {
+            result = ImageProcessingLibrary.FillHoleAlgorithm(mat, 0.00001, 0, ImageProcessingLibrary.C8W);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println("mat new: " +result.dump());
     }
 

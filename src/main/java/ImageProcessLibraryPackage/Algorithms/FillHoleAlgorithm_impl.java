@@ -15,13 +15,13 @@ public class FillHoleAlgorithm_impl implements IFillHoleAlgorithm {
   private IFindHoleAlgorithm findHolesAlgorithm;
 
   @Override
-  public Mat invoke(Mat image, Mat dest, double epsilon, double exponent, ImageProcessingLibrary.ConnectivityOption connectivityOption) {
+  public Mat invoke(Mat image, Mat dest, double epsilon, double exponent, int connectivityOption) throws Exception {
     IWeightFunction weightFunction = new DefaultWeightFunction(exponent, epsilon);
     return invoke(image, dest, weightFunction, connectivityOption);
   }
 
   @Override
-  public Mat invoke(Mat source, Mat dest, IWeightFunction weightFunction, ImageProcessingLibrary.ConnectivityOption connectivityOption) {
+  public Mat invoke(Mat source, Mat dest, IWeightFunction weightFunction, int connectivityOption) throws Exception {
 
     List<Point> boundaries = findBoundAlgorithm.invoke(source, connectivityOption);
 

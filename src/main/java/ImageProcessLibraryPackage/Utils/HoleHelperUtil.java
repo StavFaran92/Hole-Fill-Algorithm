@@ -5,12 +5,25 @@ import org.opencv.core.Mat;
 public class HoleHelperUtil {
     public static int HOLE = -1;
 
-    public static boolean isHole(Mat source, int row, int col)
-    {
+    public static boolean isHole(Mat source, int row, int col) throws Exception {
+
+        if(source == null)
+            throw new Exception("image cannot be null.");
+
+        if(row < 0 || row > source.rows() || col < 0 || col > source.cols())
+            throw new Exception("indeces outside of image, row: " + row + " col: " + col);
+
         return (source.get(row, col)[0] == HOLE);
     }
 
-    public static Mat generateHoleInImage(Mat image, int threshold){
+    public static Mat generateHoleInImageByThreshold(Mat image, int threshold) throws Exception {
+
+        if(image == null)
+            throw new Exception("image cannot be null.");
+
+        if(threshold < 0 || threshold > 255)
+            throw new Exception("Illegal threshold, should be between 0 - 255.");
+
         for (int i = 0; i < image.rows(); i++) {
             for (int j = 0; j < image.cols(); j++) {
                 if (image.get(i, j)[0] < threshold)
@@ -22,7 +35,14 @@ public class HoleHelperUtil {
         return image;
     }
 
-    public static Mat maskImage(Mat image , Mat mask){
+    public static Mat maskImage(Mat image , Mat mask) throws Exception {
+
+        if(image == null)
+            throw new Exception("image cannot be null.");
+
+        if(mask == null)
+            throw new Exception("mask cannot be null.");
+
         for (int i = 0; i < mask.rows(); i++) {
             for (int j = 0; j < mask.cols(); j++) {
                 if (isHole(mask, i, j))

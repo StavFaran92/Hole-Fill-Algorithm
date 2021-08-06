@@ -1,19 +1,21 @@
-import ImageProcessLibraryPackage.ImageProcessingLibrary;
+package ImageProcessLibraryPackage;
+
+import ImageProcessLibraryPackage.Exceptions.CommandLineException;
 import ImageProcessLibraryPackage.Utils.HoleHelperUtil;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
-import org.opencv.imgproc.Imgproc;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
+import picocli.CommandLine.Option;
 
 import java.util.concurrent.Callable;
 
 import static org.opencv.core.CvType.CV_32S;
 
 @Command(name = "commandLine", mixinStandardHelpOptions = true, version = "commandLine 1.0",
-    description = "CommandLine used to execute the Image Process Lib.")
+    description = "ImageProcessLibraryPackage.CommandLine used to execute the Image Process Lib.")
 public
 class CommandLine implements Callable<Integer> {
 
@@ -29,42 +31,48 @@ class CommandLine implements Callable<Integer> {
   @Parameters(index = "3", description = "epsilon")
   private double epsilon;
 
-//  @Option(index = "4", description = "connectivity option", required = true)
-//  private ConnectivityOption connectivityOption = ConnectivityOption.FOUR_WAY_CONNECTED;
+  @Option(names = { "-th", "--threshold" }, description = "The mask's threshold option\n, this not required options is used to control the treshold of the mask e.g. if I(v) < threshold; I(v) = Hole_Color", required = false)
+  private int threshold = 100;
 
-//  @Option(names = {"-a", "--algorithm"}, description = "MD5, SHA-1, SHA-256, ...")
-//  private String algorithm = "MD5";
+  @Option(names = { "-co", "--connectivityOption" }, description = "connectivity options: \n{ 0: 4 way connection,\n 1: 8 way connection }", required = false)
+  private int connectivityOption = ImageProcessingLibrary.C4W;
+
+  @Option(names = { "-a", "--algorithm" }, description = "specify the algorithm you wish to invoke, options:{ FillHoleAlgorithm }", required = true)
+  private String algorithm;
 
   @Override
   public Integer call() throws Exception {
     try {
-      System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
       Mat source = Imgcodecs.imread(System.getProperty("user.dir") + this.source, Imgcodecs.IMREAD_GRAYSCALE);
       Mat mask = Imgcodecs.imread(System.getProperty("user.dir") + this.mask, Imgcodecs.IMREAD_GRAYSCALE);
 
       source.convertTo(source, CV_32S);
       mask.convertTo(mask, CV_32S);
 
-      mask = HoleHelperUtil.generateHoleInImage(mask, 100);
+      mask = HoleHelperUtil.generateHoleInImageByThreshold(mask, threshold);
 
       source = HoleHelperUtil.maskImage(source, mask);
 
-      Mat result = ImageProcessingLibrary.FillHoleAlgorithm(source, epsilon, exponent, ImageProcessingLibrary.ConnectivityOption.EIGHT_WAY_CONNECTED);
+      if ("FillHoleAlgorithm".equals(algorithm)) {
+        Mat result = ImageProcessingLibrary.FillHoleAlgorithm(source, epsilon, exponent, connectivityOption);
 
-      Imgcodecs.imwrite(System.getProperty("user.dir") + "/result.png", result);
+        Imgcodecs.imwrite(System.getProperty("user.dir") + "/result.png", result);
+      }
 
       return 0;
-
-    }catch(picocli.CommandLine.ExecutionException e)
+    }
+     catch(Exception e)
     {
       e.printStackTrace();
+      throw e;
     }
-    return -1;
   }
 
   // this example implements Callable, so parsing, error handling and handling user
   // requests for usage help or version help can be done with one line of code.
   public static void main(String... args) {
+    System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     int exitCode = new picocli.CommandLine(new CommandLine()).execute(args);
     System.exit(exitCode);
   }

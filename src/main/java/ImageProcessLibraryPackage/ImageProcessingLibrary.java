@@ -2,9 +2,7 @@ package ImageProcessLibraryPackage;
 
 import ImageProcessLibraryPackage.Algorithms.*;
 import ImageProcessLibraryPackage.Algorithms.Interfaces.*;
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.opencv.core.Mat;
 
 /*
@@ -16,11 +14,9 @@ public class ImageProcessingLibrary {
 
   private static ImageProcessingLibrary instance = new ImageProcessingLibrary();
 
-  public enum ConnectivityOption
-  {
-    FOUR_WAY_CONNECTED,
-    EIGHT_WAY_CONNECTED
-  }
+  public static final int
+    C4W = 0,
+    C8W = 1;
 
   // Fields
   private static IFillHoleAlgorithm fillHoleAlgorithm;
@@ -53,9 +49,14 @@ public class ImageProcessingLibrary {
 
 
   // Methods
-  public static Mat FillHoleAlgorithm(Mat source, double epsilon, double exponent, ConnectivityOption connectivityOption){
+  public static Mat FillHoleAlgorithm(Mat source, double epsilon, double exponent, int connectivityOption) throws Exception {
     Mat dest = source.clone();
-    fillHoleAlgorithm.invoke(source, dest, epsilon, exponent, connectivityOption);
+    try {
+      fillHoleAlgorithm.invoke(source, dest, epsilon, exponent, connectivityOption);
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw e;
+    }
     return dest;
   }
 

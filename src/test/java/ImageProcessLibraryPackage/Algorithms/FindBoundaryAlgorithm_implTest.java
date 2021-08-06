@@ -31,9 +31,15 @@ public class FindBoundaryAlgorithm_implTest {
         mat.setTo(new Scalar(0));
         mat.put(1,1, HoleHelperUtil.HOLE);
         IFindBoundAlgorithm findBoundAlgorithm = new FindBoundaryAlgorithm_impl();
-        List<Point> boundaries = findBoundAlgorithm.invoke(mat, ImageProcessingLibrary.ConnectivityOption.EIGHT_WAY_CONNECTED);
-        List<Point> expected = Arrays.asList(new Point(0,0),new Point(0,1), new Point(0,2), new Point(1,0), new Point(1,2), new Point(2,0), new Point(2,1), new Point(2,2) );
-        assertTrue(expected.size() == boundaries.size() && expected.containsAll(boundaries) && boundaries.containsAll(expected));
+        List<Point> boundaries = null;
+        try {
+            boundaries = findBoundAlgorithm.invoke(mat, ImageProcessingLibrary.C8W);
+            List<Point> expected = Arrays.asList(new Point(0,0),new Point(0,1), new Point(0,2), new Point(1,0), new Point(1,2), new Point(2,0), new Point(2,1), new Point(2,2) );
+            assertTrue(expected.size() == boundaries.size() && expected.containsAll(boundaries) && boundaries.containsAll(expected));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Test
@@ -42,8 +48,14 @@ public class FindBoundaryAlgorithm_implTest {
         mat.setTo(new Scalar(0));
         mat.put(1,1, HoleHelperUtil.HOLE);
         IFindBoundAlgorithm findBoundAlgorithm = new FindBoundaryAlgorithm_impl();
-        List<Point> boundaries = findBoundAlgorithm.invoke(mat, ImageProcessingLibrary.ConnectivityOption.FOUR_WAY_CONNECTED);
-        List<Point> expected = Arrays.asList(new Point(1,0),new Point(0,1), new Point(2, 1), new Point(1, 2) );
-        assertTrue(expected.size() == boundaries.size() && expected.containsAll(boundaries) && boundaries.containsAll(expected));
+        List<Point> boundaries = null;
+        try {
+            boundaries = findBoundAlgorithm.invoke(mat, ImageProcessingLibrary.C4W);
+            List<Point> expected = Arrays.asList(new Point(1,0),new Point(0,1), new Point(2, 1), new Point(1, 2) );
+            assertTrue(expected.size() == boundaries.size() && expected.containsAll(boundaries) && boundaries.containsAll(expected));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

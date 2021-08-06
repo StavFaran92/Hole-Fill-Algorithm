@@ -1,15 +1,18 @@
 [
   {
-    "name" : "CommandLine",
+    "name" : "ImageProcessLibraryPackage.CommandLine",
     "allDeclaredConstructors" : true,
     "allPublicConstructors" : true,
     "allDeclaredMethods" : true,
     "allPublicMethods" : true,
     "fields" : [
+      { "name" : "algorithm" },
+      { "name" : "connectivityOption" },
       { "name" : "epsilon" },
       { "name" : "exponent" },
       { "name" : "mask" },
-      { "name" : "source" }
+      { "name" : "source" },
+      { "name" : "threshold" }
     ]
   },
   {
