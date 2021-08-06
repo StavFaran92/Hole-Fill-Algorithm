@@ -13,6 +13,10 @@ import static ImageProcessLibraryPackage.Utils.HoleHelperUtil.isHole;
 public class FindBoundaryAlgorithm_impl implements IFindBoundAlgorithm {
   @Override
   public List<Point> invoke(Mat image, int connectivityOption) throws Exception {
+
+    if(image == null)
+      throw new Exception("image cannot be null.");
+
     List<Point> boundaries = new ArrayList<>();
     for (int i = 0; i < image.rows(); i++) {
       for (int j = 0; j < image.cols(); j++) {

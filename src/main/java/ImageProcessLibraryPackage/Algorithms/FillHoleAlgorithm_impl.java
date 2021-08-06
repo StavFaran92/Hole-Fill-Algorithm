@@ -4,7 +4,6 @@ import ImageProcessLibraryPackage.Algorithms.Interfaces.*;
 import ImageProcessLibraryPackage.Functions.DefaultWeightFunction;
 import ImageProcessLibraryPackage.Functions.Interfaces.IWeightFunction;
 
-import ImageProcessLibraryPackage.ImageProcessingLibrary;
 import java.awt.Point;
 import java.util.List;
 import org.opencv.core.Mat;
@@ -22,6 +21,18 @@ public class FillHoleAlgorithm_impl implements IFillHoleAlgorithm {
 
   @Override
   public Mat invoke(Mat source, Mat dest, IWeightFunction weightFunction, int connectivityOption) throws Exception {
+
+    if(source == null)
+      throw new Exception("image cannot be null.");
+
+    if(dest == null)
+      throw new Exception("dest cannot be null.");
+
+    if(weightFunction == null)
+      throw new Exception("weight function is null.");
+
+    if(connectivityOption < 0)
+      throw new Exception("connectivity option cannot be negative: " + connectivityOption);
 
     List<Point> boundaries = findBoundAlgorithm.invoke(source, connectivityOption);
 
@@ -42,16 +53,33 @@ public class FillHoleAlgorithm_impl implements IFillHoleAlgorithm {
     this.findHolesAlgorithm = findHolesAlgorithm;
   }
 
-  private Mat FillHoles(Mat source, Mat dest, List<Point> holes, List<Point> boundaries, IWeightFunction weightFunction) {
+  private Mat FillHoles(Mat source, Mat dest, List<Point> holes, List<Point> boundaries, IWeightFunction weightFunction) throws Exception {
+
+    if(holes.isEmpty())
+    {
+      System.out.println("Image does not contain any holes.");
+      return source;
+    }
+
     for (Point p: holes) {
-      double intensity = GetIntensity(source, p, boundaries, weightFunction);
+      double intensity = evaluateIntensity(source, p, boundaries, weightFunction);
       dest.put(p.x, p.y, intensity);
     }
     return dest;
 
   }
 
-  private double GetIntensity(Mat image, Point p, List<Point> boundaries, IWeightFunction weightFunction) {
+  private double evaluateIntensity(Mat image, Point p, List<Point> boundaries, IWeightFunction weightFunction) throws Exception {
+
+    if(image == null)
+      throw new Exception("image cannot be null.");
+
+    if(p == null)
+      throw new Exception("Point specified is null.");
+
+    if(boundaries.isEmpty())
+      throw new Exception("boundaries list is empty.");
+
     double nominator = 0;
     double denominator = 0;
     for (Point b: boundaries) {
@@ -59,6 +87,10 @@ public class FillHoleAlgorithm_impl implements IFillHoleAlgorithm {
       nominator += weight * image.get(b.x, b.y)[0];
       denominator += weight;
     }
+
+    if(denominator == 0)
+      throw new Exception("Denominator cannot be zero.");
+
     return nominator / denominator;
   }
 }

@@ -50,6 +50,16 @@ public class ImageProcessingLibrary {
 
   // Methods
   public static Mat FillHoleAlgorithm(Mat source, double epsilon, double exponent, int connectivityOption) throws Exception {
+
+    if(source == null)
+      throw new Exception("Source cannot be null");
+
+    if(epsilon <= 0)
+      throw new Exception("Epsilon needs to be larger than 0");
+
+    if(connectivityOption < 0)
+      throw new Exception("connectivity option cannot be negative: " + connectivityOption);
+
     Mat dest = source.clone();
     try {
       fillHoleAlgorithm.invoke(source, dest, epsilon, exponent, connectivityOption);

@@ -16,7 +16,13 @@ public class DefaultWeightFunction  implements IWeightFunction {
 
 
   @Override
-  public double invoke(Point u, Point v) {
+  public double invoke(Point u, Point v) throws Exception {
+    if(u == null)
+      throw new Exception("first specified point is null.");
+
+    if(v == null)
+      throw new Exception("second specified point is null.");
+
     return 1 / (Math.pow(u.distance(v), exponent) + epsilon);
 
   }

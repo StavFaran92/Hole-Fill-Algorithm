@@ -12,6 +12,10 @@ import static ImageProcessLibraryPackage.Utils.HoleHelperUtil.isHole;
 public class FindHoleAlgorithm_impl implements IFindHoleAlgorithm {
   @Override
   public List<Point> invoke(Mat image) throws Exception {
+
+    if(image == null)
+      throw new Exception("image cannot be null.");
+    
     List<Point> holes = new ArrayList<>();
     for (int i = 0; i < image.rows(); i++) {
       for (int j = 0; j < image.cols(); j++) {
