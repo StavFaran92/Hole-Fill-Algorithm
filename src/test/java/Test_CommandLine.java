@@ -1,5 +1,3 @@
-import ImageProcessLibraryPackage.CommandLine;
-
 public class Test_CommandLine {
 
   public static void main(String ...args)

@@ -1,5 +1,3 @@
-package ImageProcessLibraryPackage;
-
 public class CommandLineUtility {
 
   /*

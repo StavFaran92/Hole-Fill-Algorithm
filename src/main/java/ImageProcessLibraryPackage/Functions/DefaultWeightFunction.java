@@ -1,8 +1,10 @@
-package ImageProcessLibraryPackage.Functions.Interfaces;
+package ImageProcessLibraryPackage.Functions;
+
+import ImageProcessLibraryPackage.Functions.Interfaces.IWeightFunction;
 
 import java.awt.Point;
 
-public class DefaultWeightFunction  implements IWeightFunction{
+public class DefaultWeightFunction  implements IWeightFunction {
 
   private double exponent;
   private double epsilon;

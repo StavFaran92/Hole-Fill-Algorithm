@@ -1,7 +1,7 @@
 package ImageProcessLibraryPackage.Algorithms;
 
 import ImageProcessLibraryPackage.Algorithms.Interfaces.*;
-import ImageProcessLibraryPackage.Functions.Interfaces.DefaultWeightFunction;
+import ImageProcessLibraryPackage.Functions.DefaultWeightFunction;
 import ImageProcessLibraryPackage.Functions.Interfaces.IWeightFunction;
 
 import ImageProcessLibraryPackage.ImageProcessingLibrary;
@@ -15,7 +15,7 @@ public class FillHoleAlgorithm_impl implements IFillHoleAlgorithm {
   private IFindHoleAlgorithm findHolesAlgorithm;
 
   @Override
-  public Mat invoke(Mat image, Mat dest, double exponent, double epsilon, ImageProcessingLibrary.ConnectivityOption connectivityOption) {
+  public Mat invoke(Mat image, Mat dest, double epsilon, double exponent, ImageProcessingLibrary.ConnectivityOption connectivityOption) {
     IWeightFunction weightFunction = new DefaultWeightFunction(exponent, epsilon);
     return invoke(image, dest, weightFunction, connectivityOption);
   }
