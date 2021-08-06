@@ -14,6 +14,8 @@ import org.opencv.core.Mat;
 * */
 public class ImageProcessingLibrary {
 
+  private static ImageProcessingLibrary instance = new ImageProcessingLibrary();
+
   public enum ConnectivityOption
   {
     FOUR_WAY_CONNECTED,
@@ -26,7 +28,7 @@ public class ImageProcessingLibrary {
   private static IFindHoleAlgorithm findHoleAlgorithm;
 
   // Default Constructor
-  public ImageProcessingLibrary(){
+  private ImageProcessingLibrary(){
     fillHoleAlgorithm = new FillHoleAlgorithm_impl();
     findBoundAlgorithm = new FindBoundaryAlgorithm_impl();
     findHoleAlgorithm = new FindHoleAlgorithm_impl();
@@ -35,7 +37,7 @@ public class ImageProcessingLibrary {
   }
 
   // Constructor
-  public ImageProcessingLibrary(IFillHoleAlgorithm fillHoleAlgorithm, IFindBoundAlgorithm findBoundAlgorithm, IFindHoleAlgorithm findHoleAlgorithm){
+  private ImageProcessingLibrary(IFillHoleAlgorithm fillHoleAlgorithm, IFindBoundAlgorithm findBoundAlgorithm, IFindHoleAlgorithm findHoleAlgorithm){
     this.fillHoleAlgorithm = fillHoleAlgorithm;
     this.findBoundAlgorithm = findBoundAlgorithm;
     this.findHoleAlgorithm = findHoleAlgorithm;
@@ -51,7 +53,7 @@ public class ImageProcessingLibrary {
 
 
   // Methods
-  public Mat FillHoleAlgorithm(Mat source, double epsilon, double exponent, ConnectivityOption connectivityOption){
+  public static Mat FillHoleAlgorithm(Mat source, double epsilon, double exponent, ConnectivityOption connectivityOption){
     Mat dest = source.clone();
     fillHoleAlgorithm.invoke(source, dest, epsilon, exponent, connectivityOption);
     return dest;

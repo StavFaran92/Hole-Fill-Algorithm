@@ -18,8 +18,7 @@ public class Test_ImageProcessingLibrary {
     mat.put(1,1, 5);
     System.out.println("mat old = " + mat.dump());
 
-    ImageProcessingLibrary lib = new ImageProcessingLibrary();
-    Mat dest = lib.FillHoleAlgorithm(mat, 0.00001, 1, ImageProcessingLibrary.ConnectivityOption.EIGHT_WAY_CONNECTED);
+    Mat dest = ImageProcessingLibrary.FillHoleAlgorithm(mat, 0.00001, 1, ImageProcessingLibrary.ConnectivityOption.EIGHT_WAY_CONNECTED);
     System.out.println("mat new = " + dest.dump());
   }
 }
