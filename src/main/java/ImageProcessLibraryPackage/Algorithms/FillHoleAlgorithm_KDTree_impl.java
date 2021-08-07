@@ -8,14 +8,14 @@ import org.opencv.core.Mat;
 
 
 import java.awt.*;
-import java.util.List;
+import java.util.Collection;
 
-public class FillHoleAlgorithm_KDTree_impl extends FillHoleAlgorithmBase_impl {
+public class FillHoleAlgorithm_KDTree_impl extends FillHoleAlgorithm_impl {
 
   private KDTree<Point> tree = new KDTree<>(2);
 
   @Override
-  public void FillHoles(Mat source, Mat dest, List<Point> holes, List<Point> boundaries, IWeightFunction weightFunction) throws Exception {
+  public void FillHoles(Mat source, Mat dest, Collection<Point> holes, Collection<Point> boundaries, IWeightFunction weightFunction) throws Exception {
     if(holes.isEmpty())
     {
       System.out.println("Image does not contain any holes.");
@@ -34,7 +34,8 @@ public class FillHoleAlgorithm_KDTree_impl extends FillHoleAlgorithmBase_impl {
     }
   }
 
-  protected double evaluateIntensity(Mat image, Point p, List<Point> boundaries, IWeightFunction weightFunction) throws Exception {
+  @Override
+  public double evaluateIntensity(Mat image, Point p, Collection<Point> boundaries, IWeightFunction weightFunction) throws Exception {
 
     if(image == null)
       throw new Exception("image cannot be null.");

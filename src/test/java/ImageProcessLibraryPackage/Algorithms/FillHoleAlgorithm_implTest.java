@@ -70,10 +70,7 @@ public class FillHoleAlgorithm_implTest {
 
             while(!innerBoundaries.isEmpty()) {
 
-                List<Point> innerBoundariesAsList = new ArrayList<>(innerBoundaries);
-                List<Point> outerBoundariesAsList = new ArrayList<>(outerBoundaries);
-
-                algorithm.FillHoles(mat, mat, innerBoundariesAsList, outerBoundariesAsList, new DefaultWeightFunction(5, 0.0001));
+                algorithm.FillHoles(mat, mat, innerBoundaries, outerBoundaries, new DefaultWeightFunction(5, 0.0001));
 
                 outerBoundaries = (Set<Point>) findBoundAlgorithm.FindOuterBoundary(mat, ImageProcessingLibrary.C8W, IFindBoundAlgorithm.SET);
                 innerBoundaries = findBoundAlgorithm.FindInnerBoundary(mat, ImageProcessingLibrary.C8W, outerBoundaries);

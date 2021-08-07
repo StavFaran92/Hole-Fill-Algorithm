@@ -25,7 +25,7 @@ public class ImageProcessingLibrary {
 
   // Default Constructor
   private ImageProcessingLibrary(){
-    fillHoleAlgorithm = new FillHoleAlgorithm_impl();
+    fillHoleAlgorithm = new FillHoleAlgorithm_Median_impl();
     findBoundAlgorithm = new FindBoundaryAlgorithm_impl();
     findHoleAlgorithm = new FindHoleAlgorithm_impl();
 
