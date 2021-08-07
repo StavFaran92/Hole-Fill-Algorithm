@@ -18,6 +18,12 @@ public class ImageProcessingLibrary {
     C4W = 0,
     C8W = 1;
 
+  public static final int
+          FHA_Default = 0,
+          FHA_Random = 1,
+          FHA_Median = 2,
+          FHA_KDTree = 3;
+
   // Fields
   private static IFillHoleAlgorithm fillHoleAlgorithm;
   private static IFindBoundAlgorithm findBoundAlgorithm;
@@ -46,10 +52,27 @@ public class ImageProcessingLibrary {
     fillHoleAlgorithm.setFindHolesAlgorithm(findHoleAlgorithm);
   }
 
-
+  public static Mat FillHoleAlgorithm(Mat source, double epsilon, double exponent, int connectivityOption, int FHA_type) throws Exception {
+    switch(FHA_type)
+    {
+      case FHA_Default:
+        fillHoleAlgorithm = new FillHoleAlgorithm_impl();
+        break;
+      case FHA_Random:
+        fillHoleAlgorithm = new FillHoleAlgorithm_Random_impl();
+        break;
+      case FHA_Median:
+        fillHoleAlgorithm = new FillHoleAlgorithm_Median_impl();
+        break;
+      case FHA_KDTree:
+        fillHoleAlgorithm = new FillHoleAlgorithm_KDTree_impl();
+        break;
+    }
+    return FillHoleAlgorithm(source, epsilon, exponent, connectivityOption);
+  }
 
   // Methods
-  public static Mat FillHoleAlgorithm(Mat source, double epsilon, double exponent, int connectivityOption) throws Exception {
+  private static Mat FillHoleAlgorithm(Mat source, double epsilon, double exponent, int connectivityOption) throws Exception {
 
     if(source == null)
       throw new Exception("Source cannot be null");

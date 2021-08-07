@@ -1,33 +1,28 @@
 package ImageProcessLibraryPackage.Algorithms;
 
-import ImageProcessLibraryPackage.Algorithms.Interfaces.IFillHoleAlgorithm;
-import ImageProcessLibraryPackage.Algorithms.Interfaces.IFindBoundAlgorithm;
 import ImageProcessLibraryPackage.Functions.Interfaces.IWeightFunction;
 import ImageProcessLibraryPackage.ImageProcessingLibrary;
-import ImageProcessLibraryPackage.Utils.HoleHelperUtil;
 import ImageProcessLibraryPackage.Utils.NeighborsHelperUtil;
 import org.opencv.core.Mat;
 
 import java.awt.*;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
- * This is a naive algorithm implementation, it performs in o(n) with terrible results
- * calculating the median boundary color and assigning it to all the pixels.
+ * This is a naive algorithm implementation, it performs in o(n) with OK
+ * it iterates the holes and for each hole assigns it the median color of its neighbors that a re not holes.
  */
 public class FillHoleAlgorithm_Median_impl extends FillHoleAlgorithm_impl {
 
     @Override
     public Mat invoke(Mat source, Mat dest, IWeightFunction weightFunction, int connectivityOption) throws Exception {
-        
+
       List<Point> holes = findHolesAlgorithm.FindHoles(source);
 
       FillHoles(source, source,holes , null, weightFunction);
 
       return source;
-
   }
 
     @Override

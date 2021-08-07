@@ -19,7 +19,7 @@ public class Test_ImageProcessingLibrary {
 
     Mat dest = null;
     try {
-      dest = ImageProcessingLibrary.FillHoleAlgorithm(mat, 0.00001, 1, ImageProcessingLibrary.C8W);
+      dest = ImageProcessingLibrary.FillHoleAlgorithm(mat, 0.00001, 1, ImageProcessingLibrary.C8W, ImageProcessingLibrary.FHA_Default);
     } catch (Exception e) {
       e.printStackTrace();
     }
