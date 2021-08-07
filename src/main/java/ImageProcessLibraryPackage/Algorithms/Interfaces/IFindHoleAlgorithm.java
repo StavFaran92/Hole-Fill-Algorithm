@@ -6,5 +6,5 @@ import org.opencv.core.Mat;
 
 
 public interface IFindHoleAlgorithm {
-  List<Point> invoke(Mat image) throws Exception;
+  List<Point> FindHoles(Mat image) throws Exception;
 }

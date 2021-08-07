@@ -37,7 +37,7 @@ class CommandLine implements Callable<Integer> {
   @Option(names = { "-co", "--connectivityOption" }, description = "connectivity options: \n{ 0: 4 way connection,\n 1: 8 way connection }", required = false)
   private int connectivityOption = ImageProcessingLibrary.C4W;
 
-  @Option(names = { "-a", "--algorithm" }, description = "specify the algorithm you wish to invoke, options:{ FillHoleAlgorithm }", required = true)
+  @Option(names = { "-a", "--algorithm" }, description = "specify the algorithm you wish to FindOuterBoundary, options:{ FillHoleAlgorithm }", required = true)
   private String algorithm;
 
   @Override

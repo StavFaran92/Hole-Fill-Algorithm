@@ -1,8 +1,6 @@
 package ImageProcessLibraryPackage.Algorithms;
 
-import ImageProcessLibraryPackage.Algorithms.Interfaces.IFindBoundAlgorithm;
 import ImageProcessLibraryPackage.Algorithms.Interfaces.IFindHoleAlgorithm;
-import ImageProcessLibraryPackage.ImageProcessingLibrary;
 import ImageProcessLibraryPackage.Utils.HoleHelperUtil;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +30,7 @@ public class FindHoleAlgorithm_implTest {
         IFindHoleAlgorithm findHoleAlgorithm = new FindHoleAlgorithm_impl();
         List<Point> holes = null;
         try {
-            holes = findHoleAlgorithm.invoke(mat);
+            holes = findHoleAlgorithm.FindHoles(mat);
             List<Point> expected = Arrays.asList(new Point(1,1) );
             assertTrue(expected.size() == holes.size() && expected.containsAll(holes) && holes.containsAll(expected));
         } catch (Exception e) {
@@ -51,7 +49,7 @@ public class FindHoleAlgorithm_implTest {
         IFindHoleAlgorithm findHoleAlgorithm = new FindHoleAlgorithm_impl();
         List<Point> holes = null;
         try {
-            holes = findHoleAlgorithm.invoke(mat);
+            holes = findHoleAlgorithm.FindHoles(mat);
             List<Point> expected = Arrays.asList(new Point(1,1), new Point(2,1) , new Point(2,2)  );
             assertTrue(expected.size() == holes.size() && expected.containsAll(holes) && holes.containsAll(expected));
         } catch (Exception e) {

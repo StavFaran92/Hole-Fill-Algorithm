@@ -15,7 +15,7 @@ public class FillHoleAlgorithm_KDTree_impl extends FillHoleAlgorithmBase_impl {
   private KDTree<Point> tree = new KDTree<>(2);
 
   @Override
-  protected void FillHoles(Mat source, Mat dest, List<Point> holes, List<Point> boundaries, IWeightFunction weightFunction) throws Exception {
+  public void FillHoles(Mat source, Mat dest, List<Point> holes, List<Point> boundaries, IWeightFunction weightFunction) throws Exception {
     if(holes.isEmpty())
     {
       System.out.println("Image does not contain any holes.");

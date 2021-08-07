@@ -1,10 +1,8 @@
 package ImageProcessLibraryPackage.Exceptions;
 
-public class CommandLineException extends Exception {
+public class CommandLineException extends RuntimeException {
 
-    private static final String NAME = "<<CommandLineException>> ";
-    @Override
-    public String getMessage() {
-        return NAME + super.getMessage();
+    public CommandLineException(){
+        super();
     }
 }

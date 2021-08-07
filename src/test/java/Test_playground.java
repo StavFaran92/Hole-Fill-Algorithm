@@ -1,31 +1,29 @@
 import com.harium.storage.kdtree.KDTree;
 import org.junit.Test;
 
+import java.awt.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public class Test_NNLib {
+public class Test_playground {
 
 
 
 
     @Test
     public void Test(){
-        double[] A = {2, 5};
-        double[] B = {1, 1};
-        double[] C = {3, 9};
-
-        KDTree<double[]> tree = new KDTree<double[]>(2);
-        tree.insert(A, A);
-        tree.insert(B, B);
-        tree.insert(C, C);
 
 
-        List<double[]> nearest = tree.nearest(new double[]{1, 0}, 2);
-        for (double[] neighbor : nearest) {
-            System.out.println(neighbor[0] + ", " + neighbor[1]);
+        Point a = new Point(1,2);
+        Point b = new Point(2,2);
 
+        Set points = new HashSet();
+        points.add(a);
+        points.add(b);
 
-        }
+        Point c = new Point(1,3);
+        System.out.println(points.contains(c));
 
 
 

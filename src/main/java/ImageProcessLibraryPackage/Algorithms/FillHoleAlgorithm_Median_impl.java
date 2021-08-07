@@ -14,7 +14,7 @@ import java.util.List;
 public class FillHoleAlgorithm_Median_impl extends FillHoleAlgorithmBase_impl {
 
   @Override
-  protected void FillHoles(Mat source, Mat dest, List<Point> holes, List<Point> boundaries, IWeightFunction weightFunction) throws Exception {
+  public void FillHoles(Mat source, Mat dest, List<Point> holes, List<Point> boundaries, IWeightFunction weightFunction) throws Exception {
 
     if(holes.isEmpty())
     {

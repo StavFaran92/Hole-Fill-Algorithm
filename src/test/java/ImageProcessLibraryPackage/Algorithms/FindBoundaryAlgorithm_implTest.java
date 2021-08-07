@@ -11,9 +11,9 @@ import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -33,7 +33,7 @@ public class FindBoundaryAlgorithm_implTest {
         IFindBoundAlgorithm findBoundAlgorithm = new FindBoundaryAlgorithm_impl();
         List<Point> boundaries = null;
         try {
-            boundaries = findBoundAlgorithm.invoke(mat, ImageProcessingLibrary.C8W);
+            boundaries = (List<Point>)findBoundAlgorithm.FindOuterBoundary(mat, ImageProcessingLibrary.C8W, IFindBoundAlgorithm.LIST);
             List<Point> expected = Arrays.asList(new Point(0,0),new Point(0,1), new Point(0,2), new Point(1,0), new Point(1,2), new Point(2,0), new Point(2,1), new Point(2,2) );
             assertTrue(expected.size() == boundaries.size() && expected.containsAll(boundaries) && boundaries.containsAll(expected));
         } catch (Exception e) {
@@ -50,9 +50,35 @@ public class FindBoundaryAlgorithm_implTest {
         IFindBoundAlgorithm findBoundAlgorithm = new FindBoundaryAlgorithm_impl();
         List<Point> boundaries = null;
         try {
-            boundaries = findBoundAlgorithm.invoke(mat, ImageProcessingLibrary.C4W);
+            boundaries = (List<Point>)findBoundAlgorithm.FindOuterBoundary(mat, ImageProcessingLibrary.C4W, IFindBoundAlgorithm.LIST);
             List<Point> expected = Arrays.asList(new Point(1,0),new Point(0,1), new Point(2, 1), new Point(1, 2) );
             assertTrue(expected.size() == boundaries.size() && expected.containsAll(boundaries) && boundaries.containsAll(expected));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void TestFindInnerBoundary() {
+        Mat mat = Mat.eye(5, 5, CvType.CV_32S);
+        mat.setTo(new Scalar(0));
+        mat.put(1,1, HoleHelperUtil.HOLE);
+        mat.put(1,2, HoleHelperUtil.HOLE);
+        mat.put(1,3, HoleHelperUtil.HOLE);
+        mat.put(2,1, HoleHelperUtil.HOLE);
+        mat.put(2,2, HoleHelperUtil.HOLE);
+        mat.put(2,3, HoleHelperUtil.HOLE);
+        mat.put(3,1, HoleHelperUtil.HOLE);
+        mat.put(3,2, HoleHelperUtil.HOLE);
+        mat.put(3,3, HoleHelperUtil.HOLE);
+        IFindBoundAlgorithm findBoundAlgorithm = new FindBoundaryAlgorithm_impl();
+        Set<Point> outerBoundaries = null;
+        try {
+            outerBoundaries = (Set<Point>)findBoundAlgorithm.FindOuterBoundary(mat, ImageProcessingLibrary.C8W, IFindBoundAlgorithm.SET);
+            Set innerBoundaries = findBoundAlgorithm.FindInnerBoundary(mat, ImageProcessingLibrary.C8W, outerBoundaries);
+            List<Point> expected = Arrays.asList(new Point(1,1),new Point(1,2), new Point(1, 3), new Point(2, 1), new Point(2, 3), new Point(3, 1), new Point(3, 2), new Point(3, 3)   );
+            assertTrue(expected.size() == innerBoundaries.size() && expected.containsAll(innerBoundaries) && innerBoundaries.containsAll(expected));
         } catch (Exception e) {
             e.printStackTrace();
         }

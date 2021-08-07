@@ -36,9 +36,9 @@ public abstract class FillHoleAlgorithmBase_impl implements IFillHoleAlgorithm {
     if(connectivityOption < 0)
       throw new Exception("connectivity option cannot be negative: " + connectivityOption);
 
-    List<Point> boundaries = findBoundAlgorithm.invoke(source, connectivityOption);
+    List<Point> boundaries = (List<Point>)findBoundAlgorithm.FindOuterBoundary(source, connectivityOption, IFindBoundAlgorithm.LIST);
 
-    List<Point> holes = findHolesAlgorithm.invoke(source);
+    List<Point> holes = findHolesAlgorithm.FindHoles(source);
 
     FillHoles(source, dest, holes, boundaries, weightFunction);
 
@@ -55,7 +55,7 @@ public abstract class FillHoleAlgorithmBase_impl implements IFillHoleAlgorithm {
     this.findHolesAlgorithm = findHolesAlgorithm;
   }
 
-  protected void FillHoles(Mat source, Mat dest, List<Point> holes, List<Point> boundaries, IWeightFunction weightFunction) throws Exception {
+  public void FillHoles(Mat source, Mat dest, List<Point> holes, List<Point> boundaries, IWeightFunction weightFunction) throws Exception {
 
     if(holes.isEmpty())
     {
