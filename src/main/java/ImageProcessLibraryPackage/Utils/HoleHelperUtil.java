@@ -8,7 +8,7 @@ public class HoleHelperUtil {
     public static boolean isHole(Mat source, int row, int col) throws Exception {
 
         if(source == null)
-            throw new Exception("image cannot be null.");
+            throw new NullPointerException("image cannot be null.");
 
         if(row < 0 || row > source.rows() || col < 0 || col > source.cols())
             throw new Exception("indeces outside of image, row: " + row + " col: " + col);

@@ -2,7 +2,7 @@ package ImageProcessLibraryPackage.Exceptions;
 
 public class CommandLineException extends RuntimeException {
 
-    public CommandLineException(){
-        super();
+    public CommandLineException(String s){
+        super(s);
     }
 }

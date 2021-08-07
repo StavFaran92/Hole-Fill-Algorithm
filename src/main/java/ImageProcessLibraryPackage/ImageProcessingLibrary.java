@@ -3,6 +3,8 @@ package ImageProcessLibraryPackage;
 import ImageProcessLibraryPackage.Algorithms.*;
 import ImageProcessLibraryPackage.Algorithms.Interfaces.*;
 
+import ImageProcessLibraryPackage.Exceptions.CommandLineException;
+import ImageProcessLibraryPackage.Exceptions.ImageProcessException;
 import org.opencv.core.Mat;
 
 /*
@@ -47,7 +49,7 @@ public class ImageProcessingLibrary {
     Init();
   }
 
-  private void Init() {
+  private static void Init() {
     fillHoleAlgorithm.setFindBoundaryAlgorithm(findBoundAlgorithm);
     fillHoleAlgorithm.setFindHolesAlgorithm(findHoleAlgorithm);
   }
@@ -56,7 +58,7 @@ public class ImageProcessingLibrary {
     switch(FHA_type)
     {
       case FHA_Default:
-        fillHoleAlgorithm = new FillHoleAlgorithm_impl();
+        fillHoleAlgorithm = new FillHoleAlgorithm_Default_impl();
         break;
       case FHA_Random:
         fillHoleAlgorithm = new FillHoleAlgorithm_Random_impl();
@@ -68,6 +70,9 @@ public class ImageProcessingLibrary {
         fillHoleAlgorithm = new FillHoleAlgorithm_KDTree_impl();
         break;
     }
+
+    Init();
+
     return FillHoleAlgorithm(source, epsilon, exponent, connectivityOption);
   }
 
@@ -75,16 +80,16 @@ public class ImageProcessingLibrary {
   private static Mat FillHoleAlgorithm(Mat source, double epsilon, double exponent, int connectivityOption) throws Exception {
 
     if(source == null)
-      throw new Exception("Source cannot be null");
+      throw new NullPointerException("Source cannot be null");
 
     if(source.channels() != 1)
-      throw new Exception("Not supported source image type");
+      throw new ImageProcessException("Not supported source image type");
 
     if(epsilon <= 0)
-      throw new Exception("Epsilon needs to be larger than 0");
+      throw new CommandLineException("Epsilon needs to be larger than 0");
 
     if(connectivityOption < 0)
-      throw new Exception("connectivity option cannot be negative: " + connectivityOption);
+      throw new CommandLineException("connectivity option cannot be negative: " + connectivityOption);
 
     Mat dest = source.clone();
     try {

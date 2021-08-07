@@ -10,7 +10,12 @@ import org.opencv.core.Mat;
 import java.awt.*;
 import java.util.Collection;
 
-public class FillHoleAlgorithm_KDTree_impl extends FillHoleAlgorithm_impl {
+/**
+ * This algorithm uses the KDTree struct to perform the fill hole algorithm,
+ * it performs in o(nlogn) complexity,
+ * it uses K nearest neighbors to determine the color intensity to fill.
+ */
+public class FillHoleAlgorithm_KDTree_impl extends FillHoleAlgorithm_Default_impl {
 
   private KDTree<Point> tree = new KDTree<>(2);
 
@@ -38,10 +43,10 @@ public class FillHoleAlgorithm_KDTree_impl extends FillHoleAlgorithm_impl {
   public double evaluateIntensity(Mat image, Point p, Collection<Point> boundaries, IWeightFunction weightFunction) throws Exception {
 
     if(image == null)
-      throw new Exception("image cannot be null.");
+      throw new NullPointerException("image cannot be null.");
 
     if(p == null)
-      throw new Exception("Point specified is null.");
+      throw new NullPointerException("Point specified is null.");
 
     double nominator = 0;
     double denominator = 0;

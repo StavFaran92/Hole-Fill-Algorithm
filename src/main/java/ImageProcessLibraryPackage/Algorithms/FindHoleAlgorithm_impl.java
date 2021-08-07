@@ -14,7 +14,7 @@ public class FindHoleAlgorithm_impl implements IFindHoleAlgorithm {
   public List<Point> FindHoles(Mat image) throws Exception {
 
     if(image == null)
-      throw new Exception("image cannot be null.");
+      throw new NullPointerException("image cannot be null.");
     
     List<Point> holes = new ArrayList<>();
     for (int i = 0; i < image.rows(); i++) {

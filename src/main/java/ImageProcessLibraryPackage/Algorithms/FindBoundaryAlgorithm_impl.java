@@ -24,7 +24,7 @@ public class FindBoundaryAlgorithm_impl implements IFindBoundAlgorithm {
 
 
     if(image == null)
-      throw new Exception("image cannot be null.");
+      throw new NullPointerException("image cannot be null.");
 
     List<Point> boundaries = new ArrayList<>();
     for (int i = 0; i < image.rows(); i++) {
@@ -47,7 +47,7 @@ public class FindBoundaryAlgorithm_impl implements IFindBoundAlgorithm {
 
   public Set<Point> FindInnerBoundary(Mat image, int connectivityOption, Set<Point> boundary) throws Exception {
     if(image == null)
-      throw new Exception("image cannot be null.");
+      throw new NullPointerException("image cannot be null.");
 
     Set<Point> boundaries = new HashSet<>();
     for (int i = 0; i < image.rows(); i++) {

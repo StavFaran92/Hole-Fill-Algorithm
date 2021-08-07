@@ -10,13 +10,21 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * This is a naive algorithm implementation, it performs in o(n) with OK
+ * This is a naive algorithm implementation, it performs in o(n) with OK results.
  * it iterates the holes and for each hole assigns it the median color of its neighbors that a re not holes.
  */
-public class FillHoleAlgorithm_Median_impl extends FillHoleAlgorithm_impl {
+public class FillHoleAlgorithm_Median_impl extends FillHoleAlgorithm_Default_impl {
 
     @Override
     public Mat invoke(Mat source, Mat dest, IWeightFunction weightFunction, int connectivityOption) throws Exception {
+        if(source == null)
+            throw new NullPointerException("image cannot be null.");
+
+        if(dest == null)
+            throw new NullPointerException("dest cannot be null.");
+
+        if(weightFunction == null)
+            throw new NullPointerException("weight function is null.");
 
       List<Point> holes = findHolesAlgorithm.FindHoles(source);
 

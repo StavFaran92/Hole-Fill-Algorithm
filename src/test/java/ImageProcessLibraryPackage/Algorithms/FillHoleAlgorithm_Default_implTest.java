@@ -7,7 +7,6 @@ import ImageProcessLibraryPackage.ImageProcessingLibrary;
 import ImageProcessLibraryPackage.Utils.HoleHelperUtil;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.platform.commons.util.CollectionUtils;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -15,12 +14,10 @@ import org.opencv.core.Scalar;
 
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.opencv.core.CvType.CV_32S;
 
-public class FillHoleAlgorithm_implTest {
+public class FillHoleAlgorithm_Default_implTest {
 
     @Before
     public void setUp() throws Exception {
@@ -39,7 +36,7 @@ public class FillHoleAlgorithm_implTest {
         System.out.println("mat old: " +mat.dump());
         Mat result = mat.clone();
         try {
-            IFillHoleAlgorithm algorithm = new FillHoleAlgorithm_impl();
+            IFillHoleAlgorithm algorithm = new FillHoleAlgorithm_Default_impl();
             algorithm.setFindBoundaryAlgorithm(new FindBoundaryAlgorithm_impl());
             algorithm.setFindHolesAlgorithm(new FindHoleAlgorithm_impl());
             algorithm.invoke(mat, result, 0.00001, 0, ImageProcessingLibrary.C8W);
@@ -58,7 +55,7 @@ public class FillHoleAlgorithm_implTest {
         System.out.println("mat old: " +mat.dump());
         Mat result = mat.clone();
         try {
-            FillHoleAlgorithm_impl algorithm = new FillHoleAlgorithm_impl();
+            FillHoleAlgorithm_Default_impl algorithm = new FillHoleAlgorithm_Default_impl();
             FindBoundaryAlgorithm_impl findBoundAlgorithm = new FindBoundaryAlgorithm_impl();
             algorithm.setFindBoundaryAlgorithm(findBoundAlgorithm);
             FindHoleAlgorithm_impl findHolesAlgorithm = new FindHoleAlgorithm_impl();
