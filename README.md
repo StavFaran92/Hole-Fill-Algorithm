@@ -5,7 +5,8 @@ A **Java** image processing library,
 ## Usage
 in order to run the jar file run the following line
 ```java
-java -cp "picocli-4.6.1.jar;lightricks_exercise.jar" ImageProcessLibraryPackage.CommandLine <image> <mask> <exponent> <epsilon> -co <connection type> -a <algorithm> -fhat <algorithm implementation>```
+java -cp "picocli-4.6.1.jar;lightricks_exercise.jar" ImageProcessLibraryPackage.CommandLine <image> <mask> <exponent> <epsilon> -co <connection type> -a <algorithm> -fhat <algorithm implementation>
+```
 
 for example, to run the basic question 1 algorithm use the following line:
 ```java
