@@ -25,7 +25,7 @@ public class ImageProcessingLibrary {
 
   // Default Constructor
   private ImageProcessingLibrary(){
-    fillHoleAlgorithm = new FillHoleAlgorithm_impl();
+    fillHoleAlgorithm = new FillHoleAlgorithm_3_impl();
     findBoundAlgorithm = new FindBoundaryAlgorithm_impl();
     findHoleAlgorithm = new FindHoleAlgorithm_impl();
 
@@ -53,6 +53,9 @@ public class ImageProcessingLibrary {
 
     if(source == null)
       throw new Exception("Source cannot be null");
+
+    if(source.channels() != 1)
+      throw new Exception("Not supported source image type");
 
     if(epsilon <= 0)
       throw new Exception("Epsilon needs to be larger than 0");

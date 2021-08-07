@@ -2,12 +2,12 @@ package ImageProcessLibraryPackage.Algorithms;
 
 
 import ImageProcessLibraryPackage.Functions.Interfaces.IWeightFunction;
-
-import java.awt.Point;
-import java.util.List;
 import org.opencv.core.Mat;
 
-public class FillHoleAlgorithm_impl extends FillHoleAlgorithmBase_impl {
+import java.awt.*;
+import java.util.List;
+
+public class FillHoleAlgorithm_4_impl extends FillHoleAlgorithmBase_impl {
 
   protected double evaluateIntensity(Mat image, Point p, List<Point> boundaries, IWeightFunction weightFunction) throws Exception {
 
