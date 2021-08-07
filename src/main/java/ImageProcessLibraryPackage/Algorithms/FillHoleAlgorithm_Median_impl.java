@@ -1,6 +1,7 @@
 package ImageProcessLibraryPackage.Algorithms;
 
 import ImageProcessLibraryPackage.Functions.Interfaces.IWeightFunction;
+import ImageProcessLibraryPackage.Utils.ImageHelperUtil;
 import org.opencv.core.Mat;
 
 import java.awt.*;
@@ -36,7 +37,7 @@ public class FillHoleAlgorithm_Median_impl extends FillHoleAlgorithmBase_impl {
     double nominator = 0;
     double denominator = boundaries.size();
     for (Point b: boundaries) {
-      nominator += image.get(b.x, b.y)[0];
+      nominator +=  ImageHelperUtil.get(image, b.x, b.y);
     }
 
     return nominator / denominator;

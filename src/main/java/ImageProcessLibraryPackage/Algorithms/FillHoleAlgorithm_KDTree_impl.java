@@ -2,6 +2,7 @@ package ImageProcessLibraryPackage.Algorithms;
 
 
 import ImageProcessLibraryPackage.Functions.Interfaces.IWeightFunction;
+import ImageProcessLibraryPackage.Utils.ImageHelperUtil;
 import com.harium.storage.kdtree.KDTree;
 import org.opencv.core.Mat;
 
@@ -45,7 +46,7 @@ public class FillHoleAlgorithm_KDTree_impl extends FillHoleAlgorithmBase_impl {
     double denominator = 0;
     for (Point b: tree.nearest(new double[]{p.x, p.y}, 4)) {
       double weight = weightFunction.invoke(p, b);
-      nominator += weight * image.get(b.x, b.y)[0];
+      nominator += weight *  ImageHelperUtil.get(image, b.x, b.y);
       denominator += weight;
     }
 

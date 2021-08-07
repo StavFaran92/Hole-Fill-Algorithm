@@ -5,6 +5,8 @@ import ImageProcessLibraryPackage.Functions.Interfaces.IWeightFunction;
 
 import java.awt.Point;
 import java.util.List;
+
+import ImageProcessLibraryPackage.Utils.ImageHelperUtil;
 import org.opencv.core.Mat;
 
 public class FillHoleAlgorithm_impl extends FillHoleAlgorithmBase_impl {
@@ -24,7 +26,7 @@ public class FillHoleAlgorithm_impl extends FillHoleAlgorithmBase_impl {
     double denominator = 0;
     for (Point b: boundaries) {
       double weight = weightFunction.invoke(p, b);
-      nominator += weight * image.get(b.x, b.y)[0];
+      nominator += weight * ImageHelperUtil.get(image, b.x, b.y);
       denominator += weight;
     }
 

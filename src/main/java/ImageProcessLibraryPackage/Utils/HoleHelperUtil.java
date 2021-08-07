@@ -13,7 +13,7 @@ public class HoleHelperUtil {
         if(row < 0 || row > source.rows() || col < 0 || col > source.cols())
             throw new Exception("indeces outside of image, row: " + row + " col: " + col);
 
-        return (source.get(row, col)[0] == HOLE);
+        return (ImageHelperUtil.get(source, row, col) == HOLE);
     }
 
     public static Mat generateHoleInImageByThreshold(Mat image, int threshold) throws Exception {
@@ -26,7 +26,7 @@ public class HoleHelperUtil {
 
         for (int i = 0; i < image.rows(); i++) {
             for (int j = 0; j < image.cols(); j++) {
-                if (image.get(i, j)[0] < threshold)
+                if (ImageHelperUtil.get(image, i, j) < threshold)
                     image.put(i, j, HOLE);
                 else
                     image.put(i, j, 0);

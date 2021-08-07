@@ -1,6 +1,7 @@
 package ImageProcessLibraryPackage.Algorithms;
 
 import ImageProcessLibraryPackage.Functions.Interfaces.IWeightFunction;
+import ImageProcessLibraryPackage.Utils.ImageHelperUtil;
 import org.opencv.core.Mat;
 
 import java.awt.*;
@@ -24,6 +25,6 @@ public class FillHoleAlgorithm_Random_impl extends FillHoleAlgorithmBase_impl {
       throw new Exception("boundaries list is empty.");
 
     Point randomPoint = boundaries.get(rand.nextInt(boundaries.size()));
-    return image.get(randomPoint.x, randomPoint.y)[0];
+    return ImageHelperUtil.get(image, randomPoint.x, randomPoint.y);
   }
 }
