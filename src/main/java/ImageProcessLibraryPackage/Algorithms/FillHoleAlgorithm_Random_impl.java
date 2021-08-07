@@ -11,7 +11,7 @@ import java.util.Random;
  * This is a naive algorithm implementation, it performs in o(n) with terrible results
  * choosing random boundary pixel for each hole.
  */
-public class FillHoleAlgorithm_2_impl extends FillHoleAlgorithmBase_impl {
+public class FillHoleAlgorithm_Random_impl extends FillHoleAlgorithmBase_impl {
 
   private Random rand = new Random();
 

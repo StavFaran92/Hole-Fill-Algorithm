@@ -10,7 +10,7 @@ import java.util.List;
  * This is a naive algorithm implementation, it performs in o(n) with terrible results
  * calculating the median boundary color and assigning it to all the pixels.
  */
-public class FillHoleAlgorithm_3_impl extends FillHoleAlgorithmBase_impl {
+public class FillHoleAlgorithm_Median_impl extends FillHoleAlgorithmBase_impl {
 
   @Override
   protected void FillHoles(Mat source, Mat dest, List<Point> holes, List<Point> boundaries, IWeightFunction weightFunction) throws Exception {

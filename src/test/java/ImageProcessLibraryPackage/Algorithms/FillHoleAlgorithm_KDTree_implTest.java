@@ -1,24 +1,17 @@
 package ImageProcessLibraryPackage.Algorithms;
 
-import ImageProcessLibraryPackage.Algorithms.Interfaces.IFillHoleAlgorithm;
-import ImageProcessLibraryPackage.Algorithms.Interfaces.IFindBoundAlgorithm;
 import ImageProcessLibraryPackage.ImageProcessingLibrary;
 import ImageProcessLibraryPackage.Utils.HoleHelperUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
-
-import java.awt.*;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.opencv.core.CvType.CV_32S;
 
-public class FillHoleAlgorithm_implTest {
+public class FillHoleAlgorithm_KDTree_implTest {
 
     @Before
     public void setUp() throws Exception {
@@ -26,7 +19,7 @@ public class FillHoleAlgorithm_implTest {
     }
 
     @Test
-    public void invoke() {
+    public void fillHoles() {
         Mat mat = new Mat(3, 3, CV_32S);
         mat.setTo(new Scalar(0));
         mat.put(0,1, 100);
@@ -37,10 +30,11 @@ public class FillHoleAlgorithm_implTest {
         System.out.println("mat old: " +mat.dump());
         Mat result = mat.clone();
         try {
-            IFillHoleAlgorithm algorithm = new FillHoleAlgorithm_impl();
+            FillHoleAlgorithm_KDTree_impl algorithm = new FillHoleAlgorithm_KDTree_impl();
             algorithm.setFindBoundaryAlgorithm(new FindBoundaryAlgorithm_impl());
             algorithm.setFindHolesAlgorithm(new FindHoleAlgorithm_impl());
-            algorithm.invoke(mat, result, 0.00001, 0, ImageProcessingLibrary.C8W);
+            algorithm.invoke(mat, result, 0.00001, 5, ImageProcessingLibrary.C8W);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,6 +42,6 @@ public class FillHoleAlgorithm_implTest {
     }
 
     @Test
-    public void invoke1() {
+    public void evaluateIntensity() {
     }
 }

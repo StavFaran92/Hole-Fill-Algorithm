@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="nearest-neighbor">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/includes/nearest-neighbour-master/src/main/java" />
+      <root url="file://$PROJECT_DIR$/includes/nearest-neighbour-master/src/test/java" />
+    </SOURCES>
+  </library>
+</component>
