@@ -13,6 +13,6 @@ public class IOHelperUtil {
     }
 
     public static void SaveImage(Mat result){
-        Imgcodecs.imwrite(System.getProperty("user.dir") + "/result.png", result);
+        Imgcodecs.imwrite(System.getProperty("user.dir") + "/submission_result.png", result);
     }
 }
