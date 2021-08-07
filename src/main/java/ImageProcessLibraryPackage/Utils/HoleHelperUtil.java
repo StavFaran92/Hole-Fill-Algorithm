@@ -51,4 +51,17 @@ public class HoleHelperUtil {
         }
         return image;
     }
+
+    public static boolean imageContainsHoles(Mat image) throws Exception {
+        if(image == null)
+            throw new NullPointerException("image cannot be null.");
+
+        for (int i = 0; i < image.rows(); i++) {
+            for (int j = 0; j < image.cols(); j++) {
+                if (isHole(image, i, j))
+                    return true;
+            }
+        }
+        return false;
+    }
 }

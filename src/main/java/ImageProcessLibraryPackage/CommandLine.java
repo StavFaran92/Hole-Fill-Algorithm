@@ -1,10 +1,9 @@
 package ImageProcessLibraryPackage;
 
-import ImageProcessLibraryPackage.Exceptions.CommandLineException;
 import ImageProcessLibraryPackage.Utils.HoleHelperUtil;
+import ImageProcessLibraryPackage.Utils.ImageIOHelper;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
@@ -12,18 +11,16 @@ import picocli.CommandLine.Option;
 
 import java.util.concurrent.Callable;
 
-import static org.opencv.core.CvType.CV_32S;
-
 @Command(name = "commandLine", mixinStandardHelpOptions = true, version = "commandLine 1.0",
     description = "ImageProcessLibraryPackage.CommandLine used to execute the Image Process Lib.")
 public
 class CommandLine implements Callable<Integer> {
 
   @Parameters(index = "0", description = "First Input RGB Image path")
-  private String source;
+  private String image_path;
 
   @Parameters(index = "1", description = "Second Input RGB Image path")
-  private String mask;
+  private String mask_path;
 
   @Parameters(index = "2", description = "exponent")
   private double exponent;
@@ -31,36 +28,34 @@ class CommandLine implements Callable<Integer> {
   @Parameters(index = "3", description = "epsilon")
   private double epsilon;
 
-  @Option(names = { "-th", "--threshold" }, description = "The mask's threshold option\n, this not required options is used to control the treshold of the mask e.g. if I(v) < threshold; I(v) = Hole_Color", required = false)
+  @Option(names = { "-th", "--threshold" }, description = "The mask_path's threshold option\n, this not required options is used to control the treshold of the mask_path e.g. if I(v) < threshold; I(v) = Hole_Color", required = false)
   private int threshold = 100;
 
   @Option(names = { "-co", "--connectivityOption" }, description = "connectivity options: \n{ 0: 4 way connection,\n 1: 8 way connection }", required = false)
   private int connectivityOption = ImageProcessingLibrary.C4W;
 
-  @Option(names = { "-a", "--algorithm" }, description = "specify the algorithm you wish to FindOuterBoundary, options:{ FillHoleAlgorithm,\n FillHoleAlgorithm,\n FillHoleAlgorithm,\n FillHoleAlgorithm }", required = true)
+  @Option(names = { "-a", "--algorithm" }, description = "specify the algorithm you wish to FindOuterBoundary, options:{ FillHoleAlgorithm }", required = true)
   private String algorithm;
+
+    @Option(names = { "-fhat", "--fillHoleAlgorithmType" }, description = "specify the Fill Hole algorithm type, options:{ 0: default,\n 1: random,\n 2: median,\n 3: kdtree  }", required = false)
+    private int type = ImageProcessingLibrary.FHA_Default;
 
   @Override
   public Integer call() throws Exception {
     try {
+        Mat source = ImageIOHelper.LoadImageAs_Grasycale_32S(this.image_path);
+        Mat mask = ImageIOHelper.LoadImageAs_Grasycale_32S(this.mask_path);
 
-      Mat source = Imgcodecs.imread(System.getProperty("user.dir") + this.source, Imgcodecs.IMREAD_GRAYSCALE);
-      Mat mask = Imgcodecs.imread(System.getProperty("user.dir") + this.mask, Imgcodecs.IMREAD_GRAYSCALE);
+        mask = HoleHelperUtil.generateHoleInImageByThreshold(mask, threshold);
+        source = HoleHelperUtil.maskImage(source, mask);
 
-      source.convertTo(source, CV_32S);
-      mask.convertTo(mask, CV_32S);
+        if ("FillHoleAlgorithm".equals(algorithm)) {
+            Mat result = ImageProcessingLibrary.FillHoleAlgorithm(source, epsilon, exponent, connectivityOption, type);
 
-      mask = HoleHelperUtil.generateHoleInImageByThreshold(mask, threshold);
+            ImageIOHelper.SaveImage(result);
+        }
 
-      source = HoleHelperUtil.maskImage(source, mask);
-
-      if ("FillHoleAlgorithm".equals(algorithm)) {
-        Mat result = ImageProcessingLibrary.FillHoleAlgorithm(source, epsilon, exponent, connectivityOption, ImageProcessingLibrary.FHA_Default);
-
-        Imgcodecs.imwrite(System.getProperty("user.dir") + "/result.png", result);
-      }
-
-      return 0;
+        return 0;
     }
     catch(Exception e)
     {
@@ -69,11 +64,13 @@ class CommandLine implements Callable<Integer> {
     }
   }
 
-  // this example implements Callable, so parsing, error handling and handling user
-  // requests for usage help or version help can be done with one line of code.
+  public static int call(String... args){
+      System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+      return new picocli.CommandLine(new CommandLine()).execute(args);
+
+  }
+
   public static void main(String... args) {
-    System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    int exitCode = new picocli.CommandLine(new CommandLine()).execute(args);
-    System.exit(exitCode);
+      System.exit(call(args));
   }
 }

@@ -3,10 +3,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class Test_NNLib {
-
-
-
+public class TestKDTree {
 
     @Test
     public void Test(){
@@ -19,16 +16,9 @@ public class Test_NNLib {
         tree.insert(B, B);
         tree.insert(C, C);
 
-
         List<double[]> nearest = tree.nearest(new double[]{1, 0}, 2);
         for (double[] neighbor : nearest) {
             System.out.println(neighbor[0] + ", " + neighbor[1]);
-
-
         }
-
-
-
-
     }
 }

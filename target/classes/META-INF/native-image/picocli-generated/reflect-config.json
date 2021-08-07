@@ -10,9 +10,10 @@
       { "name" : "connectivityOption" },
       { "name" : "epsilon" },
       { "name" : "exponent" },
-      { "name" : "mask" },
-      { "name" : "source" },
-      { "name" : "threshold" }
+      { "name" : "image_path" },
+      { "name" : "mask_path" },
+      { "name" : "threshold" },
+      { "name" : "type" }
     ]
   },
   {
