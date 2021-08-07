@@ -1,7 +1,7 @@
 package ImageProcessLibraryPackage;
 
 import ImageProcessLibraryPackage.Utils.HoleHelperUtil;
-import ImageProcessLibraryPackage.Utils.ImageIOHelper;
+import ImageProcessLibraryPackage.Utils.IOHelperUtil;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
@@ -43,8 +43,8 @@ class CommandLine implements Callable<Integer> {
   @Override
   public Integer call() throws Exception {
     try {
-        Mat source = ImageIOHelper.LoadImageAs_Grasycale_32S(this.image_path);
-        Mat mask = ImageIOHelper.LoadImageAs_Grasycale_32S(this.mask_path);
+        Mat source = IOHelperUtil.LoadImageAs_Grasycale_32S(this.image_path);
+        Mat mask = IOHelperUtil.LoadImageAs_Grasycale_32S(this.mask_path);
 
         mask = HoleHelperUtil.generateHoleInImageByThreshold(mask, threshold);
         source = HoleHelperUtil.maskImage(source, mask);
@@ -52,7 +52,7 @@ class CommandLine implements Callable<Integer> {
         if ("FillHoleAlgorithm".equals(algorithm)) {
             Mat result = ImageProcessingLibrary.FillHoleAlgorithm(source, epsilon, exponent, connectivityOption, type);
 
-            ImageIOHelper.SaveImage(result);
+            IOHelperUtil.SaveImage(result);
         }
 
         return 0;

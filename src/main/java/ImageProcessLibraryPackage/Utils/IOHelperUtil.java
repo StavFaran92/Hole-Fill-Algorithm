@@ -5,7 +5,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 
 import static org.opencv.core.CvType.CV_32S;
 
-public class ImageIOHelper {
+public class IOHelperUtil {
     public static Mat LoadImageAs_Grasycale_32S(String sourcePath){
         Mat source = Imgcodecs.imread(System.getProperty("user.dir") + sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
         source.convertTo(source, CV_32S);
