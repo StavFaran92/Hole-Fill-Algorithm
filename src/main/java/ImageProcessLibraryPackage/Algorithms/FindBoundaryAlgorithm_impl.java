@@ -38,17 +38,9 @@ public class FindBoundaryAlgorithm_impl implements IFindBoundAlgorithm {
 
   private Set<Point> FindOuterBoundaryAsSet(Mat image, int connectivityOption) throws Exception {
 
-    if(image == null)
-      throw new Exception("image cannot be null.");
+    List<Point> points = FindOuterBoundaryAsList(image, connectivityOption);
 
-    Set<Point> boundaries = new HashSet<>();
-    for (int i = 0; i < image.rows(); i++) {
-      for (int j = 0; j < image.cols(); j++) {
-        if(!isHole(image, i, j)  && NeighborsHelperUtil.checkNeighborsForHoles(image, i, j, connectivityOption))
-          boundaries.add(new Point(i,j));
-      }
-    }
-    return boundaries;
+    return new HashSet<>(points);
   }
 
 

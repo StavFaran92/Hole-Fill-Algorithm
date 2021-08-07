@@ -4,10 +4,13 @@ import ImageProcessLibraryPackage.Algorithms.Interfaces.IFillHoleAlgorithm;
 import ImageProcessLibraryPackage.Algorithms.Interfaces.IFindBoundAlgorithm;
 import ImageProcessLibraryPackage.Functions.Interfaces.IWeightFunction;
 import ImageProcessLibraryPackage.ImageProcessingLibrary;
+import ImageProcessLibraryPackage.Utils.HoleHelperUtil;
+import ImageProcessLibraryPackage.Utils.NeighborsHelperUtil;
 import org.opencv.core.Mat;
 
 import java.awt.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,22 +19,30 @@ import java.util.Set;
  */
 public class FillHoleAlgorithm_Median_impl extends FillHoleAlgorithm_impl {
 
-  @Override
-  public Mat invoke(Mat source, Mat dest, IWeightFunction weightFunction, int connectivityOption) throws Exception {
+    @Override
+    public Mat invoke(Mat source, Mat dest, IWeightFunction weightFunction, int connectivityOption) throws Exception {
+        
+      List<Point> holes = findHolesAlgorithm.FindHoles(source);
 
-      Set outerBoundaries = (Set<Point>)findBoundAlgorithm.FindOuterBoundary(source, connectivityOption, IFindBoundAlgorithm.SET);
-      Set innerBoundaries = findBoundAlgorithm.FindInnerBoundary(source, connectivityOption, outerBoundaries);
+      FillHoles(source, source,holes , null, weightFunction);
 
-
-      while(!innerBoundaries.isEmpty()) {
-
-          FillHoles(source, dest, innerBoundaries, outerBoundaries, weightFunction);
-
-          outerBoundaries = (Set<Point>) findBoundAlgorithm.FindOuterBoundary(source, connectivityOption, IFindBoundAlgorithm.SET);
-          innerBoundaries = findBoundAlgorithm.FindInnerBoundary(source, connectivityOption, outerBoundaries);
-      }
-
-    return dest;
+      return source;
 
   }
+
+    @Override
+    public void FillHoles(Mat source, Mat dest, Collection<Point> holes, Collection<Point> boundaries, IWeightFunction weightFunction) throws Exception {
+
+        if(holes.isEmpty())
+        {
+            System.out.println("Image does not contain any holes.");
+            return;
+        }
+
+        for (Point p: holes) {
+            double intensity = evaluateIntensity(source, p, NeighborsHelperUtil.GetNeighbors(p, ImageProcessingLibrary.C8W), weightFunction);
+            dest.put(p.x, p.y, intensity);
+        }
+
+    }
 }

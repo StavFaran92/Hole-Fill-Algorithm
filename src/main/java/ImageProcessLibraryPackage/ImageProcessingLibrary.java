@@ -65,7 +65,7 @@ public class ImageProcessingLibrary {
 
     Mat dest = source.clone();
     try {
-      fillHoleAlgorithm.invoke(source, dest, epsilon, exponent, connectivityOption);
+      dest = fillHoleAlgorithm.invoke(source, dest, epsilon, exponent, connectivityOption);
     } catch (Exception e) {
       e.printStackTrace();
       throw e;
