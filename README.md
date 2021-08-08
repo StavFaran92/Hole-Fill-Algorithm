@@ -1,4 +1,4 @@
-# lightricks_exercise
+# Hole Fill Algorithm
 
 A **Java** image processing library,
 
